@@ -80,3 +80,17 @@ $('#form-login').submit(function (event) {
         })
     event.preventDefault()
 })
+
+$('#logoutNav').click(function (event) {
+    localStorage.removeItem('token')
+
+    $('#email').val('')
+    $('#password').val('')
+    $('#loginForm').show()
+    $('#registerForm').hide()
+
+    $('#logoutNav').hide()
+    $('#content').hide()
+
+    event.preventDefault()
+})
