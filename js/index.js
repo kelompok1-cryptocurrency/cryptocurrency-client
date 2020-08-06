@@ -114,41 +114,41 @@ $('#logoutNav').click(function (event) {
     event.preventDefault()
 })
 
-function onSignIn(googleUser) {
+// function onSignIn(googleUser) {
 
-    const google_token = googleUser.getAuthResponse().id_token;
+//     const google_token = googleUser.getAuthResponse().id_token;
 
-    $.ajax({
-        url: `${SERVER_PATH}/login/google`,
-        method: `POST`,
-        headers: {
-            google_token
-        }
-    })
-        .done(response => {
+//     $.ajax({
+//         url: `${SERVER_PATH}/login/google`,
+//         method: `POST`,
+//         headers: {
+//             google_token
+//         }
+//     })
+//         .done(response => {
 
-            logInDisplay()
-            console.log(response);
-            localStorage.setItem('token', response.token);
+//             logInDisplay()
+//             console.log(response);
+//             localStorage.setItem('token', response.token);
 
-        })
-        .fail(response => {
-            console.log(response);
-            localStorage.setItem('token', response.token)
-        })
-        .always(response => {
-            console.log(response);
-        })
-    event.preventDefault()
-}
+//         })
+//         .fail(response => {
+//             console.log(response);
+//             localStorage.setItem('token', response.token)
+//         })
+//         .always(response => {
+//             console.log(response);
+//         })
+//     event.preventDefault()
+// }
 
 
-function googleSignOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
-}
+// function googleSignOut() {
+//     const auth2 = gapi.auth2.getAuthInstance();
+//     auth2.signOut().then(function () {
+//         console.log('User signed out.');
+//     });
+// }
 
 function logInDisplay() {
 
