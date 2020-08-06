@@ -7,6 +7,7 @@ $(document).ready(function () {
         $('#loginForm').show()
         $('#registerNav').show()
         $('#registerForm').hide()
+        $('#loginNav').hide()
         $('#logoutNav').hide()
         $('#content').hide()
 
@@ -42,6 +43,40 @@ $('#form-register').submit(function (event) {
         .always(response => {
             console.log('ini always');
         })
+    event.preventDefault()
+})
 
+$('#form-login').submit(function (event) {
+    let emailLogin = $('#email').val()
+    let passwordLogin = $('#password').val()
+
+    $.ajax({
+        method: 'POST',
+        url: `${SERVER_PATH}/login`,
+        data: {
+            email: emailLogin,
+            password: passwordLogin
+        }
+    })
+        .done((response) => {
+            console.log(response);
+            localStorage.setItem('token', response.token);
+            logInDisplay()
+
+            $('#loginNav').hide()
+            $('#loginForm').hide()
+            $('#registerNav').hide()
+            $('#registerForm').hide()
+
+            $('#logoutNav').show()
+            $('#content').show()
+
+        })
+        .fail((response) => {
+
+        })
+        .always((response) => {
+            console.log(`ini always`);
+        })
     event.preventDefault()
 })
