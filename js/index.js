@@ -92,15 +92,16 @@ $('#registerNav').click(function (event) {
 $('#loginNav').click(function (event) {
 
 
-    $('#registerForm').hide()
     $('#loginForm').show()
-    $('#loginNav').hide()
     $('#registerNav').show()
+    $('#loginNav').hide()
+    $('#registerForm').hide()
 
 })
 
 $('#logoutNav').click(function (event) {
     localStorage.removeItem('token')
+    googleSignOut()
 
     $('#email').val('')
     $('#password').val('')
@@ -112,3 +113,50 @@ $('#logoutNav').click(function (event) {
 
     event.preventDefault()
 })
+
+function onSignIn(googleUser) {
+
+    const google_token = googleUser.getAuthResponse().id_token;
+
+    $.ajax({
+        url: `${SERVER_PATH}/login/google`,
+        method: `POST`,
+        headers: {
+            google_token
+        }
+    })
+        .done(response => {
+
+            logInDisplay()
+            console.log(response);
+            localStorage.setItem('token', response.token);
+
+        })
+        .fail(response => {
+            console.log(response);
+            localStorage.setItem('token', response.token)
+        })
+        .always(response => {
+            console.log(response);
+        })
+    event.preventDefault()
+}
+
+
+function googleSignOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
+function logInDisplay() {
+
+    $('#content').show()
+    $('#logoutNav').show()
+    $('#loginForm').hide()
+    $('#registerNav').hide()
+    $('#registerForm').hide()
+    $('#loginNav').hide()
+
+}
