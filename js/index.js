@@ -81,6 +81,24 @@ $('#form-login').submit(function (event) {
     event.preventDefault()
 })
 
+$('#registerNav').click(function (event) {
+
+    $('#registerForm').show()
+    $('#loginNav').show()
+    $('#loginForm').hide()
+    $('#registerNav').hide()
+})
+
+$('#loginNav').click(function (event) {
+
+
+    $('#registerForm').hide()
+    $('#loginForm').show()
+    $('#loginNav').hide()
+    $('#registerNav').show()
+
+})
+
 $('#logoutNav').click(function (event) {
     localStorage.removeItem('token')
 
