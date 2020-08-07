@@ -24,6 +24,11 @@ $(document).ready(function () {
     }
     motivationCalendarGenerator()
     ratesGenerator()
+
+    $("#submit-converter").on("click",(event)=>{
+        event.preventDefault()
+        ratesConverter($("#content-rates-converter").val(),$("#value-converter").val())
+    })
 })
 
 $('#form-register').submit(function (event) {
@@ -144,20 +149,35 @@ function ratesGenerator() {
         url:`${SERVER_PATH}/home/rates`
     })
     .done(result=>{
-        
-        for (const key in result.rates) {
+        let arr = ["BTC","ETH","XRP","USDT","BCH","ADA","LTC","BNB","EOS","XTZ","XLM","XMR","TRX","NEO","ASAFE2"]
+        arr.forEach(curr=>{
             $("#content-rates").append(`
-        <h4>${key}: ${result.rates[key]}</h4> <br>
+        <h5>${curr}  : ${result.rates[curr]}</h5>
         `)
-        }
-        // for (const key in result.rates) {
-        //     console.log(key)
-        //     console.log(result.rates[key])
-        // }
-         //change here
+            $("#content-rates-converter").append(`
+            <option value="${curr}">${curr}</option>
+        `)
+
+        })
         })
     .fail(xhr=>console.log(xhr))
     .always(_=>{}) //$("#content-rates").empty()
+}
+
+function ratesConverter(curr,val) {
+    console.log("here")
+    $.ajax({
+        method:"GET",
+        url:`${SERVER_PATH}/home/rates`
+    })
+    .done(result=>{
+        console.log(result.rates[curr])
+        $("#result-converter").text(`
+        ${val} USD is ${val/Number(result.rates[curr])} ${curr}
+        `)
+        })
+    .fail(xhr=>console.log(xhr))
+    .always(_=>{})
 }
 
 
