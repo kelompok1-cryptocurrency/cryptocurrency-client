@@ -1,8 +1,12 @@
 const SERVER_PATH = `http://localhost:3000`
 
+
+
+
+
 $(document).ready(function () {
 
-    if (!localStorage.getItem('token')) {
+    if (!localStorage.getItem('access_token')) {
 
         $('#loginForm').show()
         $('#registerNav').show()
@@ -18,7 +22,8 @@ $(document).ready(function () {
         $(`#registerNav`).hide()
 
     }
-    
+    motivationCalendarGenerator()
+    ratesGenerator()
 })
 
 $('#form-register').submit(function (event) {
@@ -51,7 +56,7 @@ $('#form-login').submit(function (event) {
     event.preventDefault()
     let emailLogin = $('#email').val()
     let passwordLogin = $('#password').val()
-    console.log(emailLogin,passwordLogin)
+    // console.log(emailLogin,passwordLogin)
     $.ajax({
         method: 'POST',
         url: `${SERVER_PATH}/login`,
@@ -62,7 +67,7 @@ $('#form-login').submit(function (event) {
     })
         .done((response) => {
             console.log(response);
-            localStorage.setItem('token', response.token);
+            localStorage.setItem('access_token', response.access_token);
             logInDisplay()
 
             $('#loginNav').hide()
@@ -72,7 +77,7 @@ $('#form-login').submit(function (event) {
 
             $('#logoutNav').show()
             $('#content').show()
-            motivationCalendarGenerator()
+            
         })
         .fail((response) => {
 
@@ -102,7 +107,7 @@ $('#loginNav').click(function (event) {
 
 $('#logoutNav').click(function (event) {
     event.preventDefault()
-    localStorage.removeItem('token')
+    localStorage.removeItem('access_token')
     googleSignOut()
 
     $('#email').val('')
@@ -118,9 +123,10 @@ $('#logoutNav').click(function (event) {
 function motivationCalendarGenerator() {
     $.ajax({
         method:"GET",
-        url:`${SERVER_PATH}/home`
+        url:`${SERVER_PATH}/home/text`
     })
     .done(result=>{
+        
         $("#jumbo-motivation").text(`${result.motivationQuote}`)
         $("#jumbo-holiday").text(`${result.holidayDate[0].name}, on ${result.holidayDate[0].week_day} ${result.holidayDate[0].date}`)
         })
@@ -132,21 +138,32 @@ function motivationCalendarGenerator() {
 }
 
 function ratesGenerator() {
+    console.log("here")
     $.ajax({
         method:"GET",
-        url:`${SERVER_PATH}/login`
+        url:`${SERVER_PATH}/home/rates`
     })
-    .done(result=>
-        $("#jumbo-motivation").append(result)
-        )
+    .done(result=>{
+        
+        for (const key in result.rates) {
+            $("#content-rates").append(`
+        <h4>${key}: ${result.rates[key]}</h4> <br>
+        `)
+        }
+        // for (const key in result.rates) {
+        //     console.log(key)
+        //     console.log(result.rates[key])
+        // }
+         //change here
+        })
     .fail(xhr=>console.log(xhr))
-    .always(_=>$("#jumbo-motivation").empty())
+    .always(_=>{}) //$("#content-rates").empty()
 }
 
 
 // function onSignIn(googleUser) {
 
-//     const google_token = googleUser.getAuthResponse().id_token;
+//     const google_access_token = googleUser.getAuthResponse().id_token;
 
 //     $.ajax({
 //         url: `${SERVER_PATH}/login/google`,
