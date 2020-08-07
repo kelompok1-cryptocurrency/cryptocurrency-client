@@ -138,21 +138,26 @@ function motivationCalendarGenerator() {
 }
 
 function ratesGenerator() {
+    console.log("here")
     $.ajax({
         method:"GET",
         url:`${SERVER_PATH}/home/rates`
     })
     .done(result=>{
-        $("#content-rates").append(`<br>`)
-        for (const key in result) {
+        
+        for (const key in result.rates) {
             $("#content-rates").append(`
-        <h4>${key}: ${result.key}</h4> <br>
+        <h4>${key}: ${result.rates[key]}</h4> <br>
         `)
         }
+        // for (const key in result.rates) {
+        //     console.log(key)
+        //     console.log(result.rates[key])
+        // }
          //change here
         })
     .fail(xhr=>console.log(xhr))
-    .always(_=>$("#content-rates").empty())
+    .always(_=>{}) //$("#content-rates").empty()
 }
 
 
