@@ -18,9 +18,11 @@ $(document).ready(function () {
         $(`#registerNav`).hide()
 
     }
+    
 })
 
 $('#form-register').submit(function (event) {
+    event.preventDefault()
     let emailRegister = $('#emailRegis').val()
     let passwordRegister = $('#passwordRegis').val()
 
@@ -43,13 +45,13 @@ $('#form-register').submit(function (event) {
         .always(response => {
             console.log('ini always');
         })
-    event.preventDefault()
 })
 
 $('#form-login').submit(function (event) {
+    event.preventDefault()
     let emailLogin = $('#email').val()
     let passwordLogin = $('#password').val()
-
+    console.log(emailLogin,passwordLogin)
     $.ajax({
         method: 'POST',
         url: `${SERVER_PATH}/login`,
@@ -70,7 +72,7 @@ $('#form-login').submit(function (event) {
 
             $('#logoutNav').show()
             $('#content').show()
-
+            motivationCalendarGenerator()
         })
         .fail((response) => {
 
@@ -78,7 +80,6 @@ $('#form-login').submit(function (event) {
         .always((response) => {
             console.log(`ini always`);
         })
-    event.preventDefault()
 })
 
 $('#registerNav').click(function (event) {
@@ -100,6 +101,7 @@ $('#loginNav').click(function (event) {
 })
 
 $('#logoutNav').click(function (event) {
+    event.preventDefault()
     localStorage.removeItem('token')
     googleSignOut()
 
@@ -111,8 +113,36 @@ $('#logoutNav').click(function (event) {
     $('#logoutNav').hide()
     $('#content').hide()
 
-    event.preventDefault()
 })
+
+function motivationCalendarGenerator() {
+    $.ajax({
+        method:"GET",
+        url:`${SERVER_PATH}/home`
+    })
+    .done(result=>{
+        $("#jumbo-motivation").text(`${result.motivationQuote}`)
+        $("#jumbo-holiday").text(`${result.holidayDate[0].name}, on ${result.holidayDate[0].week_day} ${result.holidayDate[0].date}`)
+        })
+    .fail(xhr=>console.log(xhr))
+    .always(_=>{
+
+    })
+    
+}
+
+function ratesGenerator() {
+    $.ajax({
+        method:"GET",
+        url:`${SERVER_PATH}/login`
+    })
+    .done(result=>
+        $("#jumbo-motivation").append(result)
+        )
+    .fail(xhr=>console.log(xhr))
+    .always(_=>$("#jumbo-motivation").empty())
+}
+
 
 // function onSignIn(googleUser) {
 
