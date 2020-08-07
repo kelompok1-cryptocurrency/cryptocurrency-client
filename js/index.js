@@ -20,10 +20,9 @@ $(document).ready(function () {
         $('#registerForm').hide()
         $(`#loginNav`).hide()
         $(`#registerNav`).hide()
+        $('#content').show()
 
     }
-    motivationCalendarGenerator()
-    ratesGenerator()
 
     $("#submit-converter").on("click",(event)=>{
         event.preventDefault()
@@ -71,7 +70,6 @@ $('#form-login').submit(function (event) {
         }
     })
         .done((response) => {
-            console.log(response);
             localStorage.setItem('access_token', response.access_token);
             logInDisplay()
 
@@ -82,13 +80,14 @@ $('#form-login').submit(function (event) {
 
             $('#logoutNav').show()
             $('#content').show()
-            
+            motivationCalendarGenerator()
+            ratesGenerator()
         })
         .fail((response) => {
 
         })
         .always((response) => {
-            console.log(`ini always`);
+            
         })
 })
 
@@ -113,12 +112,13 @@ $('#loginNav').click(function (event) {
 $('#logoutNav').click(function (event) {
     event.preventDefault()
     localStorage.removeItem('access_token')
-    googleSignOut()
+    signOut()
 
     $('#email').val('')
     $('#password').val('')
     $('#loginForm').show()
     $('#registerForm').hide()
+    $('#registerNav').show()
 
     $('#logoutNav').hide()
     $('#content').hide()
@@ -143,7 +143,6 @@ function motivationCalendarGenerator() {
 }
 
 function ratesGenerator() {
-    console.log("here")
     $.ajax({
         method:"GET",
         url:`${SERVER_PATH}/home/rates`
@@ -253,6 +252,12 @@ function onSignIn(googleUser) {
     // console.log(response,'ini dari done ajax')
     // console.log(response.access_token,'<<<<<<<<<<<<<')
     localStorage.setItem('access_token',response.access_token)
+        $('#loginForm').hide()
+        $('#registerForm').hide()
+        $(`#loginNav`).hide()
+        $(`#registerNav`).hide()
+        $('#logoutNav').show()
+        $('#content').show()
   }).fail(xhr => {
     console.log(xhr)
   })
