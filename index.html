@@ -17,7 +17,7 @@
     <!-- Navbar-->
     <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="">Navbar</a>
+            <a class="navbar-brand" href="">Cryptos</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -93,13 +93,15 @@
 
     <!-- Content -->
     <div id="content">
-        <div class="jumbotron jumbotron-fluid mt-5">
+        <div class="jumbotron jumbotron-fluid">
             <div class="container">
-              <h1 class="display-5">Welcome to the Cryptocurrency App</h1>
+              <h1 class="display-5">Welcome to the Cryptocurrency App</h1> <br>
+              <p class="lead">Get the latest information about the trending currency</p>
               <h2 class="display-7" id="jumbo-motivation"></h2>
-              <p class="lead">Keep trading and stay sane with silly motivations for your day.</p>
+              <hr>
+              <p class="lead">Keep trading and stay sane with our silly motivations for your day.</p>
               <h3 class="display">Market will close on next nearest holiday:</h3>
-              <p class="lead" id="jumbo-holiday"></p>
+              <p class="lead" id="jumbo-holiday" style="color: royalblue;"></p>
             </div>
           </div>
             <div class="container-fluid">
@@ -108,26 +110,61 @@
                     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9"id="">
                         
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 border"id="">
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 border-bottom"id="">
                         <h3>Cryptocurrency Price</h3>
                     </div>
                 </div>
                 <div class="row" id="">
 
-                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 border"id="">
-                        text <!--CONTENT-->
+                    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9"id="bg-image">
+                        <div class ="row">
+                            <div class="container mt-5">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <p class="display-4 mb-4" style="font-size: 3em;">Convert amount into your preferred currency</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class ="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 py-5">
+                                <input class="form-control form-control-lg" type="number" placeholder="Currency in USD" id="value-converter">
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 py-5 pr-5 text-right" >
+                                <p id="result-converter"style="font-size: 1.5em">
+                                    ======
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 px-5">
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 px-5">
+
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 px-5">
+                                        <select name="" id="content-rates-converter" class="form-control">
+            
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 px-5">
+                                        <button type="button" class="btn btn-primary float-right" id="submit-converter">Convert</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 border"id="content-rates">
                         <br>
                     </div>
                 </div>
             </div>
-        <div id="">
-
-        </div>
+        
     </div>
 
-
+    <div class="container-fluid p-5 bg-secondary mt-5" style="height: 200px;">
+            <p style="color: whitesmoke;">@Hacktiv8 P-1 2020 <br> <br> Idaz Anggara <br> Laurentius Edrick <br> Panji Saputro</p>
+    </div>
 
     <div>
         <!-- <button class="btn btn-login" type="submit">Submit</button> -->
